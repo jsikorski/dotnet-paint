@@ -21,7 +21,7 @@ namespace DotNetPaint
             _drawingContext = new DrawingContext
                 {
                     ShapeType = ShapeType.Line, 
-                    Pen = new Pen(penColorSelector.Value)
+                    Pen = new Pen(penColorSelector.Value, int.Parse(penWidthSelector.Text))
                 };
 
             drawingArea.DrawingContext = _drawingContext;
@@ -62,10 +62,16 @@ namespace DotNetPaint
             _lastSelectedShapeTypeSelector = selector;
         }
 
+        private void PenWidthSelectorValueClick(object sender, EventArgs e)
+        {
+            var text = ((ToolStripMenuItem) sender).Text;
+            penWidthSelector.Text = text;
+            _drawingContext.Pen = new Pen(_drawingContext.Pen.Color, int.Parse(text));
+        }
+
         private void PenColorSelectorClick(object sender, ColorPickerEventArgs e)
         {
-            var color = e.Value;
-            _drawingContext.Pen = new Pen(color);
+            _drawingContext.Pen = new Pen(e.Value, _drawingContext.Pen.Width);
         }
     }
 }
