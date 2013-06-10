@@ -11,12 +11,11 @@ namespace DotNetPaint
     public class DrawingArea : PictureBox
     {
         private readonly IList<IDrawable> _shapes;
-
-        private bool _isDrawing;
-        private int _startX;
-        private int _startY;
-        private int _endX;
-        private int _endY;
+        private IDrawable _currentlyDrawnShape;
+        private bool IsDrawing
+        {
+            get { return _currentlyDrawnShape != null; }
+        }
 
         public DrawingArea()
         {
@@ -40,34 +39,33 @@ namespace DotNetPaint
 
         private void DrawingAreaMouseDown(object sender, MouseEventArgs e)
         {
-            _startX = e.X;
-            _startY = e.Y;
-            _isDrawing = true;
+            _currentlyDrawnShape = new Rectangle(Pens.Black, Brushes.Red, new Point(e.X, e.Y), new Point(e.X, e.Y));
         }
 
         private void DrawingAreaMouseMove(object sender, MouseEventArgs e)
         {
-            if (!_isDrawing)
+            if (!IsDrawing)
                 return;
 
-            _endX = e.X;
-            _endY = e.Y;
+            _currentlyDrawnShape.End = new Point(e.X, e.Y);
             Invalidate();
         }
 
         private void DrawingAreaMouseUp(object sender, MouseEventArgs e)
         {
-            _shapes.Add(new Rectangle(Pens.Black, Brushes.Red, new Point(_startX, _startY), new Point(e.X, e.Y)));
-            _isDrawing = false;
+            _shapes.Add(_currentlyDrawnShape);
+            _currentlyDrawnShape = null;
             Invalidate();
         }
 
         private void DrawingAreaPaint(object sender, PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
             _shapes.ToList().ForEach(shape => shape.Draw(e.Graphics));
-            e.Graphics.DrawRectangle(Pens.Black, 500, 500, -100, -100);
-            e.Graphics.DrawLine(Pens.Black, _startX, _startY, _endX, _endY);
+
+            if (IsDrawing)
+                _currentlyDrawnShape.Draw(e.Graphics);
         }
     }
 }
