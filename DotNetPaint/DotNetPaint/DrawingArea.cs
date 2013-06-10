@@ -4,12 +4,15 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using DotNetPaint.Models;
 using System.Linq;
-using Rectangle = DotNetPaint.Models.Rectangle;
+using DotNetPaint.Services;
 
 namespace DotNetPaint
 {
     public class DrawingArea : PictureBox
     {
+        public DrawingContext DrawingContext { get; set; }
+        private readonly ShapesProvider _shapesProvider;
+
         private readonly IList<IShape> _shapes;
         private IShape _currentlyDrawnShape;
         private bool IsDrawing
@@ -21,6 +24,7 @@ namespace DotNetPaint
         {
             InitializeComponent();
             _shapes = new List<IShape>();
+            _shapesProvider = new ShapesProvider();
         }
 
         private void InitializeComponent()
@@ -39,7 +43,12 @@ namespace DotNetPaint
 
         private void DrawingAreaMouseDown(object sender, MouseEventArgs e)
         {
-            _currentlyDrawnShape = new Rectangle(Pens.Black, Brushes.Red, new Point(e.X, e.Y), new Point(e.X, e.Y));
+            if (e.Button != MouseButtons.Left)
+                return;
+
+            var start = new Point(e.X, e.Y);
+            var end = new Point(e.X, e.Y);
+            _currentlyDrawnShape = _shapesProvider.GetShape(DrawingContext, start, end);
         }
 
         private void DrawingAreaMouseMove(object sender, MouseEventArgs e)
@@ -53,6 +62,9 @@ namespace DotNetPaint
 
         private void DrawingAreaMouseUp(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left)
+                return;
+
             _shapes.Add(_currentlyDrawnShape);
             _currentlyDrawnShape = null;
             Invalidate();
