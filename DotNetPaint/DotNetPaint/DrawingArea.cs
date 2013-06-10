@@ -10,8 +10,8 @@ namespace DotNetPaint
 {
     public class DrawingArea : PictureBox
     {
-        private readonly IList<IDrawable> _shapes;
-        private IDrawable _currentlyDrawnShape;
+        private readonly IList<IShape> _shapes;
+        private IShape _currentlyDrawnShape;
         private bool IsDrawing
         {
             get { return _currentlyDrawnShape != null; }
@@ -20,7 +20,7 @@ namespace DotNetPaint
         public DrawingArea()
         {
             InitializeComponent();
-            _shapes = new List<IDrawable>();
+            _shapes = new List<IShape>();
         }
 
         private void InitializeComponent()

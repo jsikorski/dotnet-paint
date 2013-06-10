@@ -1,14 +1,15 @@
 ﻿using System.Drawing;
+using DotNetPaint.Services;
 
 namespace DotNetPaint.Models
 {
-    public class Line : IShape
+    public class Ellipse : IShape
     {
         public Pen Pen { get; set; }
-        public Point Start { get; set; }
+        public Point Start { get; private set; }
         public Point End { get; set; }
 
-        public Line(Pen pen, Point start, Point end)
+        public Ellipse(Pen pen, Point start, Point end)
         {
             Pen = pen;
             Start = start;
@@ -17,7 +18,8 @@ namespace DotNetPaint.Models
 
         public void Draw(Graphics graphics)
         {
-            graphics.DrawLine(Pen, Start, End);
+            var boundary = ShapeBoundary.GetFor(this);
+            graphics.DrawEllipse(Pen, boundary);
         }
     }
 }

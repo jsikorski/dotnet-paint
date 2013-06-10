@@ -53,11 +53,14 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ellipse.cs" />
     <Compile Include="Models\IDrawable.cs" />
+    <Compile Include="Models\IShape.cs" />
     <Compile Include="Models\Line.cs" />
     <Compile Include="Models\Rectangle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ShapeBoundary.cs" />
     <EmbeddedResource Include="DrawingArea.resx">
       <DependentUpon>DrawingArea.cs</DependentUpon>
     </EmbeddedResource>
