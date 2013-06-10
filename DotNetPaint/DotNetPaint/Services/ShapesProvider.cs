@@ -12,11 +12,11 @@ namespace DotNetPaint.Services
             switch (drawingContext.ShapeType)
             {
                 case ShapeType.Line:
-                    return new Line(Pens.Black, start, end);
+                    return new Line(drawingContext.Pen, start, end);
                 case ShapeType.Rectangle:
-                    return new Rectangle(Pens.Black, Brushes.Red, start, end);
+                    return new Rectangle(drawingContext.Pen, Brushes.Red, start, end);
                 case ShapeType.Ellipse:
-                    return new Ellipse(Pens.Black, Brushes.Red, start, end);
+                    return new Ellipse(drawingContext.Pen, Brushes.Red, start, end);
                 default:
                     throw new ArgumentException("Unknown shape type.");
             }

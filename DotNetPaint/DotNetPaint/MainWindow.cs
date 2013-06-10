@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
+using BlackBeltCoder;
 using DotNetPaint.Models;
 
 namespace DotNetPaint
@@ -16,7 +18,12 @@ namespace DotNetPaint
 
             _lastSelectedShapeTypeSelector = lineSelector;
 
-            _drawingContext = new DrawingContext();
+            _drawingContext = new DrawingContext
+                {
+                    ShapeType = ShapeType.Line, 
+                    Pen = new Pen(penColorSelector.Value)
+                };
+
             drawingArea.DrawingContext = _drawingContext;
         }
 
@@ -53,6 +60,12 @@ namespace DotNetPaint
             selector.Checked = true;
 
             _lastSelectedShapeTypeSelector = selector;
+        }
+
+        private void PenColorSelectorClick(object sender, ColorPickerEventArgs e)
+        {
+            var color = e.Value;
+            _drawingContext.Pen = new Pen(color);
         }
     }
 }
