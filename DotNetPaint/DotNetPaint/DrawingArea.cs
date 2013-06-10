@@ -62,7 +62,7 @@ namespace DotNetPaint
 
         private void DrawingAreaMouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
+            if (!IsDrawing || e.Button != MouseButtons.Left)
                 return;
 
             _shapes.Add(_currentlyDrawnShape);
