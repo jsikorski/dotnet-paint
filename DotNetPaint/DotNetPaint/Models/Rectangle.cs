@@ -20,20 +20,13 @@ namespace DotNetPaint.Models
 
         public void Draw(Graphics graphics)
         {
-            int width = End.X - Start.X;
-            int height = End.Y - Start.Y;
+            var topLeft = new Point(Math.Min(Start.X, End.X), Math.Min(End.Y, Start.Y));
 
-            Point topLeft = Start;
+            int width = Math.Abs(End.X - Start.X);
+            int height = Math.Abs(End.Y - Start.Y);
             
-            if (width < 0 && height < 0)
-                topLeft = End;
-            else if (width < 0 && height > 0)
-                topLeft = new Point(End.X, Start.Y);
-            else if (width > 0 && height < 0)
-                topLeft = new Point(Start.X, End.Y);
-
-            graphics.DrawRectangle(Pen, topLeft.X, topLeft.Y, Math.Abs(width), Math.Abs(height));
-            graphics.FillRectangle(Brush, topLeft.X, topLeft.Y, Math.Abs(width), Math.Abs(height));
+            graphics.DrawRectangle(Pen, topLeft.X, topLeft.Y, width, height);
+            graphics.FillRectangle(Brush, topLeft.X, topLeft.Y, width, height);
         }
     }
 }
