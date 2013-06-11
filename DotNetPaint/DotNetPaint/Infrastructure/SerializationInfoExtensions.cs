@@ -15,6 +15,7 @@ namespace DotNetPaint.Infrastructure
         private const string PenDashStyleSuffix = ".DashStyle";
 
         private const string BrushTypeSuffix = ".Type";
+        private const string TransparentBrushType = "Transparent";
         private const string SolidBrushType = "Solid";
         private const string LinearGradientBrushType = "LinearGradient";
 
@@ -90,6 +91,9 @@ namespace DotNetPaint.Infrastructure
         {
             string type = info.GetString(name + BrushTypeSuffix);
 
+            if (type == TransparentBrushType)
+                return Brushes.Transparent;
+
             if (type == SolidBrushType)
                 return info.GetSolidBrush(name);
 
@@ -103,6 +107,12 @@ namespace DotNetPaint.Infrastructure
         
         public static void AddSolidBrush(this SerializationInfo info, string name, SolidBrush brush)
         {
+            if (brush.Color.Name == "Transparent")
+            {
+                info.AddValue(name + BrushTypeSuffix, TransparentBrushType);
+                return;
+            }
+
             info.AddValue(name + BrushTypeSuffix, SolidBrushType);
             info.AddColor(name + SolidBrushColorSuffix, brush.Color);
         }

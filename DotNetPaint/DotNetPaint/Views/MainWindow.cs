@@ -85,7 +85,9 @@ namespace DotNetPaint.Views
             if (string.IsNullOrEmpty(fileDialog.FileName))
                 return;
 
-            ExecuteAsync(() => drawingArea.SaveToFile(fileDialog.FileName), "Saving...");
+            ExecuteAsync(
+                () => ShapesPersistence.SaveToFile(fileDialog.FileName, drawingArea.Shapes), 
+                "Saving...");
         }
 
         private void Open(object sender, EventArgs e)
@@ -96,10 +98,14 @@ namespace DotNetPaint.Views
             if (string.IsNullOrEmpty(fileDialog.FileName))
                 return;
 
-            ExecuteAsync(() => drawingArea.LoadFromFile(fileDialog.FileName), "Loading...");
+            IList<IShape> shapes = null;
+            ExecuteAsync(
+                () => shapes = ShapesPersistence.LoadFromFile(fileDialog.FileName), 
+                "Loading...", 
+                () => drawingArea.SetShapes(shapes));
         }
 
-        private void ExecuteAsync(Action action, string statusMessage)
+        private void ExecuteAsync(Action action, string statusMessage, Action onSuccess = null)
         {
             ThreadPool.QueueUserWorkItem(
                 state =>
@@ -109,6 +115,9 @@ namespace DotNetPaint.Views
                         Invoke(new Action(() => statusIndicator.Text = statusMessage));
                         action();
                         Invoke(new Action(() => statusIndicator.Text = "Ready"));
+
+                        if (onSuccess != null)
+                            Invoke(new Action(onSuccess));
                     }
                     catch (Exception)
                     {

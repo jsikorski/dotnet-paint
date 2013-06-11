@@ -158,23 +158,9 @@ namespace DotNetPaint.Views
                 handler(value);
         }
 
-        public void SaveToFile(string filePath)
+        public void SetShapes(IList<IShape> shapes)
         {
-            using (var fileStream = File.OpenWrite(filePath))
-            {
-                var binaryFormatter = new BinaryFormatter();
-                binaryFormatter.Serialize(fileStream, Shapes);
-            }
-        }
-
-        public void LoadFromFile(string filePath)
-        {
-            using (var fileStream = File.OpenRead(filePath))
-            {
-                var binaryFormatter = new BinaryFormatter();
-                Shapes = (IList<IShape>)binaryFormatter.Deserialize(fileStream);
-            }
-
+            Shapes = shapes;
             _undoneShapes.Clear();
             UpdateUndoRedo();
             Invalidate();

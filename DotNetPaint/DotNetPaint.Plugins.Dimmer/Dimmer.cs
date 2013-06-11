@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetPaint.Common;
 
@@ -25,12 +22,14 @@ namespace DotNetPaint.Plugins.Dimmer
             {
                 shape.Pen.Color = ControlPaint.Dark(shape.Pen.Color);
 
-                if (shape.Brush == Brushes.Transparent)
-                    return;
-
                 var solidBrush = shape.Brush as SolidBrush;
                 if (solidBrush != null)
+                {
+                    if (solidBrush.Color.Name == "Transparent")
+                        return;
+
                     solidBrush.Color = ControlPaint.Dark(solidBrush.Color);
+                }
 
                 var linearGradientBrush = shape.Brush as LinearGradientBrush;
                 if (linearGradientBrush != null)

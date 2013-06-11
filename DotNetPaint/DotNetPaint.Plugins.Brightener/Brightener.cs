@@ -11,7 +11,7 @@ namespace DotNetPaint.Plugins.Brightener
     {
         public ToolStripItem AddButton(ToolStrip container)
         {
-            var button = new ToolStripButton(Resources.Sun) {ToolTipText = "Brighter"};
+            var button = new ToolStripButton(Resources.Sun) { ToolTipText = "Brighter" };
             container.Items.Add(button);
             return button;
         }
@@ -19,24 +19,26 @@ namespace DotNetPaint.Plugins.Brightener
         public void Execute(IEnumerable<IShape> shapes)
         {
             shapes.ToList().ForEach(shape =>
-                                        {
-                                            shape.Pen.Color = ControlPaint.Light(shape.Pen.Color);
+            {
+                shape.Pen.Color = ControlPaint.Light(shape.Pen.Color);
 
-                                            if (shape.Brush == Brushes.Transparent)
-                                                return;
+                var solidBrush = shape.Brush as SolidBrush;
+                if (solidBrush != null)
+                {
+                    if (solidBrush.Color.Name == "Transparent")
+                        return;
 
-                                            var solidBrush = shape.Brush as SolidBrush;
-                                            if (solidBrush != null)
-                                                solidBrush.Color = ControlPaint.Light(solidBrush.Color);
+                    solidBrush.Color = ControlPaint.Light(solidBrush.Color);
+                }
 
-                                            var linearGradientBrush = shape.Brush as LinearGradientBrush;
-                                            if (linearGradientBrush != null)
-                                            {
-                                                var firstColor = ControlPaint.Light(linearGradientBrush.LinearColors[0]);
-                                                var secondColor = ControlPaint.Light(linearGradientBrush.LinearColors[1]);
-                                                linearGradientBrush.LinearColors = new[] {firstColor, secondColor};
-                                            }
-                                        });
+                var linearGradientBrush = shape.Brush as LinearGradientBrush;
+                if (linearGradientBrush != null)
+                {
+                    var firstColor = ControlPaint.Light(linearGradientBrush.LinearColors[0]);
+                    var secondColor = ControlPaint.Light(linearGradientBrush.LinearColors[1]);
+                    linearGradientBrush.LinearColors = new[] { firstColor, secondColor };
+                }
+            });
         }
     }
 }

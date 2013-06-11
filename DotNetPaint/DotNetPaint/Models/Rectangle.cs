@@ -9,8 +9,17 @@ namespace DotNetPaint.Models
     [Serializable]
     public class Rectangle : IShape, ISerializable
     {
+        private Brush _brush;
         public Pen Pen { get; set; }
-        public Brush Brush { get; set; }
+        public Brush Brush
+        {
+            get { return _brush; }
+            set
+            {
+                _brush = value;
+            }
+        }
+
         public Point Start { get; set; }
         public Point End { get; set; }
 
