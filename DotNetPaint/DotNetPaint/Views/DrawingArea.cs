@@ -174,6 +174,8 @@ namespace DotNetPaint.Views
                 Shapes = (IList<IShape>)binaryFormatter.Deserialize(fileStream);
             }
 
+            _undoneShapes.Clear();
+            UpdateUndoRedo();
             Invalidate();
         }
     }
