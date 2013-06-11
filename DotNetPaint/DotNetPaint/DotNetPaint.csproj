@@ -50,14 +50,13 @@
     <Compile Include="DrawingContext.cs" />
     <Compile Include="Infrastructure\SerializationInfoExtensions.cs" />
     <Compile Include="Models\Ellipse.cs" />
-    <Compile Include="Models\IDrawable.cs" />
-    <Compile Include="Models\IShape.cs" />
     <Compile Include="Models\Line.cs" />
     <Compile Include="Models\Rectangle.cs" />
     <Compile Include="Models\ShapesSerialization.cs" />
     <Compile Include="Models\ShapeType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PluginsLoader.cs" />
     <Compile Include="Services\ShapeBoundary.cs" />
     <Compile Include="Services\ShapesProvider.cs" />
     <Compile Include="Views\DrawingArea.cs">
@@ -109,7 +108,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetPaint.Common\DotNetPaint.Common.csproj">
+      <Project>{86ad741a-59a4-498c-ab4f-bf54bed83343}</Project>
+      <Name>DotNetPaint.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

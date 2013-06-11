@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.Serialization;
+using DotNetPaint.Common;
 using DotNetPaint.Services;
 
 namespace DotNetPaint.Models

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using DotNetPaint.Common;
 using DotNetPaint.Models;
 using Rectangle = DotNetPaint.Models.Rectangle;
 
@@ -10,7 +11,7 @@ namespace DotNetPaint.Services
         public IShape GetShape(DrawingContext drawingContext, Point start, Point end)
         {
             var pen = (Pen)drawingContext.Pen.Clone();
-            var brush = (Brush)drawingContext.Brush.Clone();
+            var brush = drawingContext.Brush == Brushes.Transparent ? Brushes.Transparent : (Brush)drawingContext.Brush.Clone();
 
             switch (drawingContext.ShapeType)
             {

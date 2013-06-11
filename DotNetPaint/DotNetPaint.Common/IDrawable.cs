@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace DotNetPaint.Models
+namespace DotNetPaint.Common
 {
     public interface IDrawable
     {

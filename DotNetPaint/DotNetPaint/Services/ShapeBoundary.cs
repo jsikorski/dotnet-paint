@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using DotNetPaint.Models;
+using DotNetPaint.Common;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace DotNetPaint.Services

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using DotNetPaint.Common;
 using DotNetPaint.Models;
 using DotNetPaint.Services;
 
@@ -175,6 +176,15 @@ namespace DotNetPaint.Views
             }
 
             _undoneShapes.Clear();
+            UpdateUndoRedo();
+            Invalidate();
+        }
+
+        public void Restart()
+        {
+            Shapes.Clear();
+            _undoneShapes.Clear();
+            _currentlyDrawnShape = null;
             UpdateUndoRedo();
             Invalidate();
         }

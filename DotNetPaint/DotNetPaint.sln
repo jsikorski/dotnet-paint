@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetPaint", "DotNetPaint\DotNetPaint.csproj", "{D025B5CF-BCAF-4DCA-B2DD-3C167E1026F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetPaint.Common", "DotNetPaint.Common\DotNetPaint.Common.csproj", "{86AD741A-59A4-498C-AB4F-BF54BED83343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetPaint.Plugins.Brightener", "DotNetPaint.Plugins.Brightener\DotNetPaint.Plugins.Brightener.csproj", "{E65D23E4-6AFE-430E-AFD1-3C2FB25C4495}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetPaint.Plugins.Dimmer", "DotNetPaint.Plugins.Dimmer\DotNetPaint.Plugins.Dimmer.csproj", "{56F80F33-0470-43A6-97FC-18CF17EE3FAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +19,18 @@ Global
 		{D025B5CF-BCAF-4DCA-B2DD-3C167E1026F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D025B5CF-BCAF-4DCA-B2DD-3C167E1026F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D025B5CF-BCAF-4DCA-B2DD-3C167E1026F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86AD741A-59A4-498C-AB4F-BF54BED83343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86AD741A-59A4-498C-AB4F-BF54BED83343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86AD741A-59A4-498C-AB4F-BF54BED83343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86AD741A-59A4-498C-AB4F-BF54BED83343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E65D23E4-6AFE-430E-AFD1-3C2FB25C4495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E65D23E4-6AFE-430E-AFD1-3C2FB25C4495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E65D23E4-6AFE-430E-AFD1-3C2FB25C4495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E65D23E4-6AFE-430E-AFD1-3C2FB25C4495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F80F33-0470-43A6-97FC-18CF17EE3FAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F80F33-0470-43A6-97FC-18CF17EE3FAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F80F33-0470-43A6-97FC-18CF17EE3FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F80F33-0470-43A6-97FC-18CF17EE3FAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
