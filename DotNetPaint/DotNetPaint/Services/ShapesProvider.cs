@@ -9,14 +9,16 @@ namespace DotNetPaint.Services
     {
         public IShape GetShape(DrawingContext drawingContext, Point start, Point end)
         {
+            var pen = (Pen)drawingContext.Pen.Clone();
+
             switch (drawingContext.ShapeType)
             {
                 case ShapeType.Line:
-                    return new Line(drawingContext.Pen, start, end);
+                    return new Line(pen, start, end);
                 case ShapeType.Rectangle:
-                    return new Rectangle(drawingContext.Pen, Brushes.Red, start, end);
+                    return new Rectangle(pen, Brushes.Red, start, end);
                 case ShapeType.Ellipse:
-                    return new Ellipse(drawingContext.Pen, Brushes.Red, start, end);
+                    return new Ellipse(pen, Brushes.Red, start, end);
                 default:
                     throw new ArgumentException("Unknown shape type.");
             }

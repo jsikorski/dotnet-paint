@@ -1,10 +1,13 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Windows.Forms;
 using BlackBeltCoder;
 using DotNetPaint.Models;
 
-namespace DotNetPaint
+namespace DotNetPaint.Views
 {
     public partial class MainWindow : Form
     {
@@ -66,12 +69,20 @@ namespace DotNetPaint
         {
             var text = ((ToolStripMenuItem) sender).Text;
             penWidthSelector.Text = text;
-            _drawingContext.Pen = new Pen(_drawingContext.Pen.Color, int.Parse(text));
+            _drawingContext.Pen.Width = int.Parse(text);
+        }
+
+        private void PenStyleSelectorValueClick(object sender, EventArgs e)
+        {
+            var text = ((ToolStripMenuItem) sender).Text;
+            var value = (DashStyle) Enum.Parse(typeof(DashStyle), text);
+            _drawingContext.Pen.DashStyle = value;
+            penStyleSelector.Text = text.Substring(0, 1);
         }
 
         private void PenColorSelectorClick(object sender, ColorPickerEventArgs e)
         {
-            _drawingContext.Pen = new Pen(e.Value, _drawingContext.Pen.Width);
+            _drawingContext.Pen.Color = e.Value;
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Windows.Forms;
 using DotNetPaint.Models;
-using System.Linq;
 using DotNetPaint.Services;
 
-namespace DotNetPaint
+namespace DotNetPaint.Views
 {
     public class DrawingArea : PictureBox
     {

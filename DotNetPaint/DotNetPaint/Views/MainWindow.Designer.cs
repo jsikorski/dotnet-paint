@@ -1,4 +1,4 @@
-﻿namespace DotNetPaint
+namespace DotNetPaint.Views
 {
     partial class MainWindow
     {
@@ -51,7 +51,11 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.drawingArea = new DotNetPaint.DrawingArea();
+            this.penStyleSelector = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.drawingArea = new DrawingArea();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -198,6 +202,7 @@
             this.ellipseSelector,
             this.toolStripSeparator1,
             this.penWidthSelector,
+            this.penStyleSelector,
             this.penColorSelector});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
@@ -224,37 +229,72 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(86, 22);
             this.toolStripMenuItem1.Text = "1";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.PenWidthSelectorValueClick);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(86, 22);
             this.toolStripMenuItem2.Text = "3";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.PenWidthSelectorValueClick);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(86, 22);
             this.toolStripMenuItem3.Text = "5";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.PenWidthSelectorValueClick);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(86, 22);
             this.toolStripMenuItem4.Text = "7";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.PenWidthSelectorValueClick);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(86, 22);
             this.toolStripMenuItem5.Text = "15";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.PenWidthSelectorValueClick);
+            // 
+            // penStyleSelector
+            // 
+            this.penStyleSelector.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.penStyleSelector.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem6,
+            this.toolStripMenuItem7,
+            this.toolStripMenuItem8});
+            this.penStyleSelector.Image = ((System.Drawing.Image)(resources.GetObject("penStyleSelector.Image")));
+            this.penStyleSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.penStyleSelector.Name = "penStyleSelector";
+            this.penStyleSelector.Size = new System.Drawing.Size(29, 19);
+            this.penStyleSelector.Text = "S";
+            this.penStyleSelector.ToolTipText = "Pen style";
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem6.Text = "Solid";
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.PenStyleSelectorValueClick);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem7.Text = "Dot";
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.PenStyleSelectorValueClick);
+            // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem8.Text = "Dash";
+            this.toolStripMenuItem8.Click += new System.EventHandler(this.PenStyleSelectorValueClick);
             // 
             // drawingArea
             // 
@@ -316,6 +356,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripDropDownButton penStyleSelector;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
     }
 }
 
