@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using System.Windows.Forms;
 using BlackBeltCoder;
 using DotNetPaint.Models;
@@ -11,7 +15,7 @@ namespace DotNetPaint.Views
 {
     public partial class MainWindow : Form
     {
-        private readonly DrawingContext _drawingContext;
+        private DrawingContext _drawingContext;
         private ToolStripButton _lastSelectedShapeTypeSelector;
 
         public MainWindow()
@@ -144,6 +148,46 @@ namespace DotNetPaint.Views
         private void RedoClick(object sender, EventArgs e)
         {
             drawingArea.Redo();
+        }
+
+        private void Save(object sender, EventArgs e)
+        {
+            var fileDialog = new SaveFileDialog { Filter = "dotnet-paint files (*.dnp)|*.dnp" };
+            fileDialog.ShowDialog(this);
+
+            if (string.IsNullOrEmpty(fileDialog.FileName))
+                return;
+
+            ExecuteAsync(() => drawingArea.SaveToFile(fileDialog.FileName), "Saving...");
+        }
+
+        private new void Load(object sender, EventArgs e)
+        {
+            var fileDialog = new OpenFileDialog { Filter = "dotnet-paint files (*.dnp)|*.dnp" };
+            fileDialog.ShowDialog(this);
+
+            if (string.IsNullOrEmpty(fileDialog.FileName))
+                return;
+
+            ExecuteAsync(() => drawingArea.LoadFromFile(fileDialog.FileName), "Loading...");
+        }
+
+        private void ExecuteAsync(Action action, string statusMessage)
+        {
+            ThreadPool.QueueUserWorkItem(
+                state =>
+                    {
+                        try
+                        {
+                            Invoke(new Action(() => statusIndicator.Text = statusMessage));
+                            action();
+                            Invoke(new Action(() => statusIndicator.Text = "Ready"));
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("Some error occured.", "Error");
+                        }
+                    });
         }
     }
 }

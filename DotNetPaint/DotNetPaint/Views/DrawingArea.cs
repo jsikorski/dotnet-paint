@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using DotNetPaint.Models;
 using DotNetPaint.Services;
@@ -14,7 +16,7 @@ namespace DotNetPaint.Views
         public DrawingContext DrawingContext { get; set; }
         private readonly ShapesProvider _shapesProvider;
 
-        private readonly IList<IShape> _shapes;
+        public IList<IShape> Shapes { get; private set; }
         private IShape _currentlyDrawnShape;
         private bool IsDrawing
         {
@@ -58,7 +60,7 @@ namespace DotNetPaint.Views
         public DrawingArea()
         {
             InitializeComponent();
-            _shapes = new List<IShape>();
+            Shapes = new List<IShape>();
             _undoneShapes = new List<IShape>();
             _shapesProvider = new ShapesProvider();
         }
@@ -101,15 +103,16 @@ namespace DotNetPaint.Views
             if (!IsDrawing || e.Button != MouseButtons.Left)
                 return;
 
-            _shapes.Add(_currentlyDrawnShape);
+            Shapes.Add(_currentlyDrawnShape);
             _currentlyDrawnShape = null;
+            _undoneShapes.Clear();
             UpdateUndoRedo();
             Invalidate();
         }
 
         private void UpdateUndoRedo()
         {
-            CanUndo = _shapes.Any();
+            CanUndo = Shapes.Any();
             CanRedo = _undoneShapes.Any();
         }
 
@@ -117,7 +120,7 @@ namespace DotNetPaint.Views
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-            _shapes.ToList().ForEach(shape => shape.Draw(e.Graphics));
+            Shapes.ToList().ForEach(shape => shape.Draw(e.Graphics));
 
             if (IsDrawing)
                 _currentlyDrawnShape.Draw(e.Graphics);
@@ -128,8 +131,8 @@ namespace DotNetPaint.Views
             if (!CanUndo)
                 return;
 
-            var lastShape = _shapes.Last();
-            _shapes.Remove(lastShape);
+            var lastShape = Shapes.Last();
+            Shapes.Remove(lastShape);
             _undoneShapes.Add(lastShape);
             UpdateUndoRedo();
             Invalidate();
@@ -142,7 +145,7 @@ namespace DotNetPaint.Views
 
             var undoneShape = _undoneShapes.Last();
             _undoneShapes.Remove(undoneShape);
-            _shapes.Add(undoneShape);
+            Shapes.Add(undoneShape);
             UpdateUndoRedo();
             Invalidate();
         }
@@ -152,6 +155,32 @@ namespace DotNetPaint.Views
             var handler = action;
             if (handler != null) 
                 handler(value);
+        }
+
+        public void Load(IList<IShape> shapes)
+        {
+            Shapes = shapes;
+            Invalidate();
+        }
+
+        public void SaveToFile(string filePath)
+        {
+            using (var fileStream = File.OpenWrite(filePath))
+            {
+                var binaryFormatter = new BinaryFormatter();
+                binaryFormatter.Serialize(fileStream, Shapes);
+            }
+        }
+
+        public void LoadFromFile(string filePath)
+        {
+            using (var fileStream = File.OpenRead(filePath))
+            {
+                var binaryFormatter = new BinaryFormatter();
+                Shapes = (IList<IShape>)binaryFormatter.Deserialize(fileStream);
+            }
+
+            Invalidate();
         }
     }
 }

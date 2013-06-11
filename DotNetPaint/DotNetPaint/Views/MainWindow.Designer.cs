@@ -37,8 +37,8 @@ namespace DotNetPaint.Views
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undo = new System.Windows.Forms.ToolStripMenuItem();
             this.redo = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusIndicatorContainer = new System.Windows.Forms.StatusStrip();
+            this.statusIndicator = new System.Windows.Forms.ToolStripStatusLabel();
             this.lineSelector = new System.Windows.Forms.ToolStripButton();
             this.rectangleSelector = new System.Windows.Forms.ToolStripButton();
             this.ellipseSelector = new System.Windows.Forms.ToolStripButton();
@@ -65,7 +65,7 @@ namespace DotNetPaint.Views
             this.gradientFillSecondColorSelector = new BlackBeltCoder.ColorToolStripDropDownButton();
             this.drawingArea = new DotNetPaint.Views.DrawingArea();
             this.menuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.statusIndicatorContainer.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).BeginInit();
             this.SuspendLayout();
@@ -96,12 +96,14 @@ namespace DotNetPaint.Views
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Save";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.Save);
             // 
             // loadToolStripMenuItem1
             // 
             this.loadToolStripMenuItem1.Name = "loadToolStripMenuItem1";
             this.loadToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem1.Text = "Load";
+            this.loadToolStripMenuItem1.Click += new System.EventHandler(this.Load);
             // 
             // exitToolStripMenuItem
             // 
@@ -123,7 +125,7 @@ namespace DotNetPaint.Views
             // 
             this.undo.Enabled = false;
             this.undo.Name = "undo";
-            this.undo.Size = new System.Drawing.Size(152, 22);
+            this.undo.Size = new System.Drawing.Size(103, 22);
             this.undo.Text = "Undo";
             this.undo.Click += new System.EventHandler(this.UndoClick);
             // 
@@ -131,25 +133,25 @@ namespace DotNetPaint.Views
             // 
             this.redo.Enabled = false;
             this.redo.Name = "redo";
-            this.redo.Size = new System.Drawing.Size(152, 22);
+            this.redo.Size = new System.Drawing.Size(103, 22);
             this.redo.Text = "Redo";
             this.redo.Click += new System.EventHandler(this.RedoClick);
             // 
-            // statusStrip1
+            // statusIndicatorContainer
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 540);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusIndicatorContainer.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusIndicator});
+            this.statusIndicatorContainer.Location = new System.Drawing.Point(0, 540);
+            this.statusIndicatorContainer.Name = "statusIndicatorContainer";
+            this.statusIndicatorContainer.Size = new System.Drawing.Size(784, 22);
+            this.statusIndicatorContainer.TabIndex = 1;
+            this.statusIndicatorContainer.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // statusIndicator
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
-            this.toolStripStatusLabel1.Text = "Ready";
+            this.statusIndicator.Name = "statusIndicator";
+            this.statusIndicator.Size = new System.Drawing.Size(39, 17);
+            this.statusIndicator.Text = "Ready";
             // 
             // lineSelector
             // 
@@ -393,6 +395,8 @@ namespace DotNetPaint.Views
             // drawingArea
             // 
             this.drawingArea.BackColor = System.Drawing.Color.White;
+            this.drawingArea.CanRedo = false;
+            this.drawingArea.CanUndo = false;
             this.drawingArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingArea.DrawingContext = null;
             this.drawingArea.Location = new System.Drawing.Point(30, 24);
@@ -408,15 +412,15 @@ namespace DotNetPaint.Views
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.drawingArea);
             this.Controls.Add(this.toolStrip);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusIndicatorContainer);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "DotNet Paint";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusIndicatorContainer.ResumeLayout(false);
+            this.statusIndicatorContainer.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).EndInit();
@@ -435,8 +439,8 @@ namespace DotNetPaint.Views
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undo;
         private System.Windows.Forms.ToolStripMenuItem redo;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.StatusStrip statusIndicatorContainer;
+        private System.Windows.Forms.ToolStripStatusLabel statusIndicator;
         private DrawingArea drawingArea;
         private System.Windows.Forms.ToolStripButton lineSelector;
         private System.Windows.Forms.ToolStripButton rectangleSelector;

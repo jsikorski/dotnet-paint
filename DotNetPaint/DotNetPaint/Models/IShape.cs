@@ -4,7 +4,9 @@ namespace DotNetPaint.Models
 {
     public interface IShape : IDrawable
     {
-        Point Start { get; }
+        Pen Pen { get; set; }
+        Brush Brush { get; set; }
+        Point Start { get; set; }
         Point End { get; set; }
     }
 }

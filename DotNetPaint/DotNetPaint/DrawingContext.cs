@@ -1,8 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using DotNetPaint.Models;
 
 namespace DotNetPaint
 {
+    [Serializable]
     public class DrawingContext
     {
         public ShapeType ShapeType { get; set; }
