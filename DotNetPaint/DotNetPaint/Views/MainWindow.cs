@@ -19,6 +19,9 @@ namespace DotNetPaint.Views
             InitializeComponent();
             InitializeGraphics();
 
+            drawingArea.CanUndoChanged += newValue => undo.Enabled = newValue;
+            drawingArea.CanRedoChanged += newValue => redo.Enabled = newValue;
+
             _lastSelectedShapeTypeSelector = lineSelector;
 
             _drawingContext = new DrawingContext
@@ -131,6 +134,16 @@ namespace DotNetPaint.Views
         private void GradientFillColorSelectorClick(object sender, ColorPickerEventArgs e)
         {
             SetGradient();
+        }
+
+        private void UndoClick(object sender, EventArgs e)
+        {
+            drawingArea.Undo();
+        }
+
+        private void RedoClick(object sender, EventArgs e)
+        {
+            drawingArea.Redo();
         }
     }
 }

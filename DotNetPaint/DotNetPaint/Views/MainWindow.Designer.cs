@@ -35,8 +35,8 @@ namespace DotNetPaint.Views
             this.loadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undo = new System.Windows.Forms.ToolStripMenuItem();
+            this.redo = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lineSelector = new System.Windows.Forms.ToolStripButton();
@@ -113,25 +113,27 @@ namespace DotNetPaint.Views
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.undoToolStripMenuItem,
-            this.redoToolStripMenuItem});
+            this.undo,
+            this.redo});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
-            // undoToolStripMenuItem
+            // undo
             // 
-            this.undoToolStripMenuItem.Enabled = false;
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
+            this.undo.Enabled = false;
+            this.undo.Name = "undo";
+            this.undo.Size = new System.Drawing.Size(152, 22);
+            this.undo.Text = "Undo";
+            this.undo.Click += new System.EventHandler(this.UndoClick);
             // 
-            // redoToolStripMenuItem
+            // redo
             // 
-            this.redoToolStripMenuItem.Enabled = false;
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.redoToolStripMenuItem.Text = "Redo";
+            this.redo.Enabled = false;
+            this.redo.Name = "redo";
+            this.redo.Size = new System.Drawing.Size(152, 22);
+            this.redo.Text = "Redo";
+            this.redo.Click += new System.EventHandler(this.RedoClick);
             // 
             // statusStrip1
             // 
@@ -157,7 +159,7 @@ namespace DotNetPaint.Views
             this.lineSelector.Image = global::DotNetPaint.Properties.Resources.line;
             this.lineSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lineSelector.Name = "lineSelector";
-            this.lineSelector.Size = new System.Drawing.Size(29, 20);
+            this.lineSelector.Size = new System.Drawing.Size(27, 20);
             this.lineSelector.Text = "toolStripButton1";
             this.lineSelector.ToolTipText = "Line";
             this.lineSelector.Click += new System.EventHandler(this.LineSelectorClick);
@@ -168,7 +170,7 @@ namespace DotNetPaint.Views
             this.rectangleSelector.Image = global::DotNetPaint.Properties.Resources.rectangle;
             this.rectangleSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rectangleSelector.Name = "rectangleSelector";
-            this.rectangleSelector.Size = new System.Drawing.Size(29, 20);
+            this.rectangleSelector.Size = new System.Drawing.Size(27, 20);
             this.rectangleSelector.Text = "toolStripButton2";
             this.rectangleSelector.ToolTipText = "Rectangle";
             this.rectangleSelector.Click += new System.EventHandler(this.RectangleSelectorClick);
@@ -179,7 +181,7 @@ namespace DotNetPaint.Views
             this.ellipseSelector.Image = global::DotNetPaint.Properties.Resources.ellipse;
             this.ellipseSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ellipseSelector.Name = "ellipseSelector";
-            this.ellipseSelector.Size = new System.Drawing.Size(29, 20);
+            this.ellipseSelector.Size = new System.Drawing.Size(27, 20);
             this.ellipseSelector.Text = "toolStripButton3";
             this.ellipseSelector.ToolTipText = "Ellipse";
             this.ellipseSelector.Click += new System.EventHandler(this.EllipseSelectorClick);
@@ -187,7 +189,7 @@ namespace DotNetPaint.Views
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(29, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(27, 6);
             // 
             // penWidthSelector
             // 
@@ -201,7 +203,7 @@ namespace DotNetPaint.Views
             this.penWidthSelector.Image = ((System.Drawing.Image)(resources.GetObject("penWidthSelector.Image")));
             this.penWidthSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.penWidthSelector.Name = "penWidthSelector";
-            this.penWidthSelector.Size = new System.Drawing.Size(29, 19);
+            this.penWidthSelector.Size = new System.Drawing.Size(27, 19);
             this.penWidthSelector.Text = "1";
             this.penWidthSelector.ToolTipText = "Pen width";
             // 
@@ -250,7 +252,7 @@ namespace DotNetPaint.Views
             this.penStyleSelector.Image = ((System.Drawing.Image)(resources.GetObject("penStyleSelector.Image")));
             this.penStyleSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.penStyleSelector.Name = "penStyleSelector";
-            this.penStyleSelector.Size = new System.Drawing.Size(29, 19);
+            this.penStyleSelector.Size = new System.Drawing.Size(27, 19);
             this.penStyleSelector.Text = "S";
             this.penStyleSelector.ToolTipText = "Pen style";
             // 
@@ -281,7 +283,7 @@ namespace DotNetPaint.Views
             this.penColorSelector.Image = ((System.Drawing.Image)(resources.GetObject("penColorSelector.Image")));
             this.penColorSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.penColorSelector.Name = "penColorSelector";
-            this.penColorSelector.Size = new System.Drawing.Size(29, 20);
+            this.penColorSelector.Size = new System.Drawing.Size(27, 20);
             this.penColorSelector.Text = "colorToolStripDropDownButton1";
             this.penColorSelector.ToolTipText = "Pen color";
             this.penColorSelector.Value = System.Drawing.Color.Black;
@@ -290,7 +292,7 @@ namespace DotNetPaint.Views
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(29, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(27, 6);
             // 
             // toolStrip
             // 
@@ -310,7 +312,7 @@ namespace DotNetPaint.Views
             this.gradientFillSecondColorSelector});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(32, 516);
+            this.toolStrip.Size = new System.Drawing.Size(30, 516);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -324,7 +326,7 @@ namespace DotNetPaint.Views
             this.fillStyleSelector.Image = ((System.Drawing.Image)(resources.GetObject("fillStyleSelector.Image")));
             this.fillStyleSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fillStyleSelector.Name = "fillStyleSelector";
-            this.fillStyleSelector.Size = new System.Drawing.Size(29, 19);
+            this.fillStyleSelector.Size = new System.Drawing.Size(27, 19);
             this.fillStyleSelector.Text = "N";
             this.fillStyleSelector.ToolTipText = "Fill style";
             // 
@@ -355,7 +357,7 @@ namespace DotNetPaint.Views
             this.solidFillColorSelector.Image = ((System.Drawing.Image)(resources.GetObject("solidFillColorSelector.Image")));
             this.solidFillColorSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.solidFillColorSelector.Name = "solidFillColorSelector";
-            this.solidFillColorSelector.Size = new System.Drawing.Size(29, 20);
+            this.solidFillColorSelector.Size = new System.Drawing.Size(27, 20);
             this.solidFillColorSelector.Text = "colorToolStripDropDownButton1";
             this.solidFillColorSelector.ToolTipText = "Fill color";
             this.solidFillColorSelector.Value = System.Drawing.Color.Black;
@@ -368,7 +370,7 @@ namespace DotNetPaint.Views
             this.gradientFillFirstColorSelector.Image = ((System.Drawing.Image)(resources.GetObject("gradientFillFirstColorSelector.Image")));
             this.gradientFillFirstColorSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.gradientFillFirstColorSelector.Name = "gradientFillFirstColorSelector";
-            this.gradientFillFirstColorSelector.Size = new System.Drawing.Size(29, 20);
+            this.gradientFillFirstColorSelector.Size = new System.Drawing.Size(27, 20);
             this.gradientFillFirstColorSelector.Text = "colorToolStripDropDownButton1";
             this.gradientFillFirstColorSelector.ToolTipText = "First fill color";
             this.gradientFillFirstColorSelector.Value = System.Drawing.Color.White;
@@ -381,7 +383,7 @@ namespace DotNetPaint.Views
             this.gradientFillSecondColorSelector.Image = ((System.Drawing.Image)(resources.GetObject("gradientFillSecondColorSelector.Image")));
             this.gradientFillSecondColorSelector.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.gradientFillSecondColorSelector.Name = "gradientFillSecondColorSelector";
-            this.gradientFillSecondColorSelector.Size = new System.Drawing.Size(29, 20);
+            this.gradientFillSecondColorSelector.Size = new System.Drawing.Size(27, 20);
             this.gradientFillSecondColorSelector.Text = "colorToolStripDropDownButton1";
             this.gradientFillSecondColorSelector.ToolTipText = "Second fill color";
             this.gradientFillSecondColorSelector.Value = System.Drawing.Color.Black;
@@ -393,9 +395,9 @@ namespace DotNetPaint.Views
             this.drawingArea.BackColor = System.Drawing.Color.White;
             this.drawingArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingArea.DrawingContext = null;
-            this.drawingArea.Location = new System.Drawing.Point(32, 24);
+            this.drawingArea.Location = new System.Drawing.Point(30, 24);
             this.drawingArea.Name = "drawingArea";
-            this.drawingArea.Size = new System.Drawing.Size(752, 516);
+            this.drawingArea.Size = new System.Drawing.Size(754, 516);
             this.drawingArea.TabIndex = 3;
             this.drawingArea.TabStop = false;
             // 
@@ -431,8 +433,8 @@ namespace DotNetPaint.Views
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem undo;
+        private System.Windows.Forms.ToolStripMenuItem redo;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private DrawingArea drawingArea;
