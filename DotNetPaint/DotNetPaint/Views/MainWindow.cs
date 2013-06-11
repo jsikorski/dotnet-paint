@@ -23,8 +23,9 @@ namespace DotNetPaint.Views
 
             _drawingContext = new DrawingContext
                 {
-                    ShapeType = ShapeType.Line, 
-                    Pen = new Pen(penColorSelector.Value, int.Parse(penWidthSelector.Text))
+                    ShapeType = ShapeType.Line,
+                    Pen = new Pen(penColorSelector.Value, int.Parse(penWidthSelector.Text)),
+                    Brush = Brushes.Transparent
                 };
 
             drawingArea.DrawingContext = _drawingContext;
@@ -47,7 +48,7 @@ namespace DotNetPaint.Views
 
         private void RectangleSelectorClick(object sender, EventArgs e)
         {
-            SelectShapeType(ShapeType.Rectangle, (ToolStripButton) sender);
+            SelectShapeType(ShapeType.Rectangle, (ToolStripButton)sender);
         }
 
         private void EllipseSelectorClick(object sender, EventArgs e)
@@ -58,7 +59,7 @@ namespace DotNetPaint.Views
         private void SelectShapeType(ShapeType shapeType, ToolStripButton selector)
         {
             _lastSelectedShapeTypeSelector.Checked = false;
-            
+
             _drawingContext.ShapeType = shapeType;
             selector.Checked = true;
 
@@ -67,15 +68,15 @@ namespace DotNetPaint.Views
 
         private void PenWidthSelectorValueClick(object sender, EventArgs e)
         {
-            var text = ((ToolStripMenuItem) sender).Text;
+            var text = ((ToolStripMenuItem)sender).Text;
             penWidthSelector.Text = text;
             _drawingContext.Pen.Width = int.Parse(text);
         }
 
         private void PenStyleSelectorValueClick(object sender, EventArgs e)
         {
-            var text = ((ToolStripMenuItem) sender).Text;
-            var value = (DashStyle) Enum.Parse(typeof(DashStyle), text);
+            var text = ((ToolStripMenuItem)sender).Text;
+            var value = (DashStyle)Enum.Parse(typeof(DashStyle), text);
             _drawingContext.Pen.DashStyle = value;
             penStyleSelector.Text = text.Substring(0, 1);
         }
@@ -83,6 +84,53 @@ namespace DotNetPaint.Views
         private void PenColorSelectorClick(object sender, ColorPickerEventArgs e)
         {
             _drawingContext.Pen.Color = e.Value;
+        }
+
+        private void FillStyleSelectorClick(object sender, EventArgs e)
+        {
+            var text = ((ToolStripMenuItem)sender).Text;
+
+            switch (text)
+            {
+                case "None":
+                    solidFillColorSelector.Visible = false;
+                    gradientFillFirstColorSelector.Visible = false;
+                    gradientFillSecondColorSelector.Visible = false;
+                    _drawingContext.Brush = Brushes.Transparent;
+                    break;
+                case "Solid":
+                    solidFillColorSelector.Visible = true;
+                    gradientFillFirstColorSelector.Visible = false;
+                    gradientFillSecondColorSelector.Visible = false;
+                    _drawingContext.Brush = new SolidBrush(solidFillColorSelector.Value);
+                    break;
+                case "Gradient":
+                    solidFillColorSelector.Visible = false;
+                    gradientFillFirstColorSelector.Visible = true;
+                    gradientFillSecondColorSelector.Visible = true;
+                    SetGradient();
+                    break;
+            }
+
+            fillStyleSelector.Text = text.Substring(0, 1);
+        }
+
+        private void SetGradient()
+        {
+            var gradient = new LinearGradientBrush(new Point(0, 0), new Point(5, 5),
+                                                   gradientFillFirstColorSelector.Value,
+                                                   gradientFillSecondColorSelector.Value);
+            _drawingContext.Brush = gradient;
+        }
+
+        private void SolidFillColorSelectorClick(object sender, ColorPickerEventArgs e)
+        {
+            _drawingContext.Brush = new SolidBrush(e.Value);
+        }
+
+        private void GradientFillColorSelectorClick(object sender, ColorPickerEventArgs e)
+        {
+            SetGradient();
         }
     }
 }

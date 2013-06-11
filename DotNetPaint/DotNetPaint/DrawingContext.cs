@@ -7,5 +7,6 @@ namespace DotNetPaint
     {
         public ShapeType ShapeType { get; set; }
         public Pen Pen { get; set; }
+        public Brush Brush { get; set; }
     }
 }
