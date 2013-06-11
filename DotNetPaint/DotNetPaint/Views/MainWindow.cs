@@ -114,10 +114,9 @@ namespace DotNetPaint.Views
                     {
                         Invoke(new Action(() => statusIndicator.Text = statusMessage));
                         action();
-                        Invoke(new Action(() => statusIndicator.Text = "Ready"));
-
                         if (onSuccess != null)
                             Invoke(new Action(onSuccess));
+                        Invoke(new Action(() => statusIndicator.Text = "Ready"));
                     }
                     catch (Exception)
                     {

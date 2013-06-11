@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrawingContext.cs" />
-    <Compile Include="Infrastructure\AsyncInvoker.cs" />
     <Compile Include="Infrastructure\SerializationInfoExtensions.cs" />
     <Compile Include="Models\Ellipse.cs" />
     <Compile Include="Models\Line.cs" />
