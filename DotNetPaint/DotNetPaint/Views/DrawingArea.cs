@@ -157,12 +157,6 @@ namespace DotNetPaint.Views
                 handler(value);
         }
 
-        public void Load(IList<IShape> shapes)
-        {
-            Shapes = shapes;
-            Invalidate();
-        }
-
         public void SaveToFile(string filePath)
         {
             using (var fileStream = File.OpenWrite(filePath))
