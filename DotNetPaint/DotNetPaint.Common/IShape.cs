@@ -8,5 +8,7 @@ namespace DotNetPaint.Common
         Brush Brush { get; set; }
         Point Start { get; set; }
         Point End { get; set; }
+
+        void MakeSymetric();
     }
 }

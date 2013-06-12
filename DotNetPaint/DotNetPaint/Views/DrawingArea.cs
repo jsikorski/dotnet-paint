@@ -95,7 +95,11 @@ namespace DotNetPaint.Views
             if (!IsDrawing)
                 return;
 
-            _currentlyDrawnShape.End = new Point(e.X, e.Y);
+            _currentlyDrawnShape.End = new Point(e.X, e.Y); 
+
+            if (ModifierKeys == Keys.Shift)
+                _currentlyDrawnShape.MakeSymetric();
+            
             Invalidate();
         }
 
